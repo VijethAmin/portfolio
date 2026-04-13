@@ -24,12 +24,27 @@
             --glow-color: rgba(0, 212, 255, 0.3);
         }
 
+        /* Light mode variables */
+        [data-theme="light"] {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-card: #ffffff;
+            --accent-primary: #0891b2;
+            --accent-secondary: #7c3aed;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a5568;
+            --text-muted: #718096;
+            --border-color: #e2e8f0;
+            --glow-color: rgba(8, 145, 178, 0.2);
+        }
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
             color: var(--text-primary);
             background: var(--bg-primary);
             overflow-x: hidden;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
         /* Animated background */
@@ -44,6 +59,7 @@
                 radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 80% 20%, rgba(124, 58, 237, 0.1) 0%, transparent 50%),
                 linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            transition: background 0.3s ease;
         }
 
         .container {
@@ -58,43 +74,25 @@
             position: fixed;
             top: 0;
             left: 0;
-    z-index: 999;
-    background-color: rgb(3, 1, 18);
-}
+            z-index: 999;
+            background-color: rgba(3, 1, 18, 0.95);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
 
-nav {
-    display: flex;
-    justify-content: center; /* centers horizontally */
-    align-items: center;
-    gap: 50px; /* space between logo and menu */
-    height: 100px;
-    background-color: rgb(3, 1, 18);
-    font-size: 1.5rem;
-}
+        [data-theme="light"] header {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
 
-nav .left {
-    font-weight: bold;
-    color: white;
-}
-
-nav ul {
-    display: flex;
-    list-style: none;
-    gap: 30px; /* consistent spacing between items */
-    margin: 0;
-    padding: 0;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: aliceblue;
-    transition: all 0.3s ease;
-}
-
-nav ul li a:hover {
-    color: rgb(124, 79, 196);
-    font-size: 1.4rem;
-}
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
 
         .logo {
             font-size: 1.5rem;
@@ -105,10 +103,16 @@ nav ul li a:hover {
             background-clip: text;
         }
 
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 3rem;
+            gap: 2.5rem;
         }
 
         .nav-links a {
@@ -138,6 +142,39 @@ nav ul li a:hover {
             width: 100%;
         }
 
+        /* Theme Toggle */
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            padding: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent-primary);
+            transform: scale(1.05);
+        }
+
+        .theme-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--text-primary);
+        }
+
         /* Main Content */
         main {
             margin-top: 100px;
@@ -153,7 +190,7 @@ nav ul li a:hover {
         /* Hero Section */
         .hero {
             text-align: center;
-            padding: 8rem 2rem;
+            padding: 8rem 2rem 4rem;
             position: relative;
             min-height: 100vh;
             display: flex;
@@ -178,13 +215,13 @@ nav ul li a:hover {
             justify-content: center;
             overflow: hidden;
             position: relative;
-            box-shadow: 2 2 60px var(--glow-color);
+            box-shadow: 0 0 60px var(--glow-color);
             animation: glow 3s ease-in-out infinite alternate;
         }
 
         @keyframes glow {
-            from { box-shadow: 0 0 90px var(--glow-color); }
-            to { box-shadow: 0 0 90px var(--glow-color), 0 0 120px rgba(0, 213, 255, 0.762); }
+            from { box-shadow: 0 0 60px var(--glow-color); }
+            to { box-shadow: 0 0 90px var(--glow-color), 0 0 120px rgba(0, 213, 255, 0.4); }
         }
 
         .profile-image img {
@@ -246,7 +283,7 @@ nav ul li a:hover {
 
         .btn-primary {
             background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            color: var(--bg-primary);
+            color: #ffffff;
             box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
         }
 
@@ -264,8 +301,60 @@ nav ul li a:hover {
 
         .btn-secondary:hover {
             background: var(--accent-primary);
-            color: var(--bg-primary);
+            color: #ffffff;
             transform: translateY(-3px);
+        }
+
+        /* Stats Section */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 15px 40px var(--glow-color);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 500;
         }
 
         /* Content Sections */
@@ -365,7 +454,7 @@ nav ul li a:hover {
 
         .tech-tag {
             background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            color: var(--bg-primary);
+            color: #ffffff;
             padding: 0.4rem 1rem;
             border-radius: 20px;
             font-size: 0.8rem;
@@ -499,44 +588,227 @@ nav ul li a:hover {
             line-height: 1.6;
         }
 
-        /* Contact Section Social Links Fix */
-.social-links {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.2rem;
-    justify-items: center;
-    margin-top: 2rem;
-}
+        .experience-description p {
+            margin-bottom: 0.8rem;
+        }
 
-.social-link {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    padding: 0.8rem 1rem;
-    background: var(--bg-secondary, #1e1e2f);
-    border: 1px solid var(--border-color, #333);
-    border-radius: 8px;
-    color: var(--text-primary, #fff);
-    text-decoration: none;
-    font-size: 1rem;
-    width: 100%;
-    max-width: 320px;
-    transition: background 0.3s ease, transform 0.2s ease;
-}
+        /* Education & Certifications Section */
+        .edu-cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
 
-.social-link:hover {
-    background: rgba(124, 58, 237, 0.1);
-    transform: translateY(-2px);
-}
+        .edu-cert-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
 
-.social-icon {
-    width: 28px;
-    height: 28px;
-    flex-shrink: 0;
-}
+        .edu-cert-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+        }
+
+        .edu-cert-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 15px 40px var(--glow-color);
+        }
+
+        .edu-cert-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .edu-cert-icon svg {
+            width: 28px;
+            height: 28px;
+            fill: #ffffff;
+        }
+
+        .edu-cert-card h3 {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .edu-cert-institution {
+            color: var(--accent-primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .edu-cert-date {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .edu-cert-details {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Contact Form */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .contact-form {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 2.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px var(--glow-color);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: #ffffff;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.4);
+        }
+
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            border-color: var(--accent-primary);
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px var(--glow-color);
+        }
+
+        .social-icon {
+            width: 28px;
+            height: 28px;
+            flex-shrink: 0;
+        }
+
         .social-icon svg {
             width: 100%;
             height: 100%;
+            fill: var(--text-primary);
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 20px var(--glow-color);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 998;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.5);
+        }
+
+        .back-to-top svg {
+            width: 24px;
+            height: 24px;
+            fill: #ffffff;
         }
 
         /* Mobile Responsive */
@@ -548,12 +820,20 @@ nav ul li a:hover {
             .projects-grid {
                 grid-template-columns: 1fr;
             }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
-        @media (max-width: 758px) {
+        @media (max-width: 768px) {
+            .nav-center {
+                gap: 1rem;
+            }
+
             .nav-links {
-                gap: 1.2rem;
-                font-size: 0.8rem;
+                gap: 1rem;
+                font-size: 0.85rem;
             }
 
             .logo {
@@ -561,7 +841,7 @@ nav ul li a:hover {
             }
 
             .hero {
-                padding: 6rem 1rem;
+                padding: 6rem 1rem 4rem;
             }
 
             .profile-image {
@@ -572,6 +852,11 @@ nav ul li a:hover {
             .hero-buttons {
                 flex-direction: column;
                 align-items: center;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
             }
 
             .skills-grid {
@@ -588,8 +873,19 @@ nav ul li a:hover {
                 padding-left: 2rem;
             }
 
+            .edu-cert-grid {
+                grid-template-columns: 1fr;
+            }
+
             section {
                 padding: 4rem 0;
+            }
+
+            .back-to-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 45px;
+                height: 45px;
             }
         }
 
@@ -607,36 +903,30 @@ nav ul li a:hover {
             animation: float 6s ease-in-out infinite;
         }
 
-        .particle:nth-child(1) {
-            width: 4px;
-            height: 4px;
-            background: var(--accent-primary);
-            top: 20%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-
-        .particle:nth-child(2) {
-            width: 6px;
-            height: 6px;
-            background: var(--accent-secondary);
-            top: 60%;
-            right: 15%;
-            animation-delay: 2s;
-        }
-
-        .particle:nth-child(3) {
-            width: 3px;
-            height: 3px;
-            background: var(--accent-primary);
-            bottom: 30%;
-            left: 20%;
-            animation-delay: 4s;
-        }
-
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-20px); }
+        }
+
+        /* Success message */
+        .success-message {
+            position: fixed;
+            top: 100px;
+            right: 2rem;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .success-message.show {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -648,16 +938,26 @@ nav ul li a:hover {
     </div>
 
     <header>
-        <nav class="container">
-            <div class="logo"></div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+        <nav>
+            <div class="logo">Vijeth Amin</div>
+            <div class="nav-center">
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <div class="theme-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="sun-icon">
+                            <path d="M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z"/>
+                        </svg>
+                    </div>
+                </button>
+            </div>
         </nav>
     </header>
 
@@ -668,36 +968,19 @@ nav ul li a:hover {
                     <img src="assets/vijeth.JPG" alt="Vijeth Amin Profile Picture">
                 </div>
                 <h1>Hello, I'm Vijeth Amin</h1>
-                <p>B.E in Computer Science Engineer with hands-on experience in Data Science & Analytics and Machine Learning. Expertise in Python, SQL, PowerBI, and end-to-end data solutions.</p>
+                <p>Computer Science Engineer specializing in Data Science and Analytics. Expert in Python, SQL, AWS, and Power BI with a focus on end-to-end data integrity. Experienced in leading data annotation and QA workflows to deliver high-accuracy datasets for ML applications.</p>
                 <div class="hero-buttons">
                     <a href="#contact" class="btn btn-primary">Contact Me →</a>
-                    <a href="assets/Vijeth Amin CV  (1).pdf" class="btn btn-secondary" download>Download CV ↓</a>
+                    <a href="assets/Vijeth Amin kapikad Resume.pdf" class="btn btn-secondary" download>Download CV ↓</a>
                 </div>
-            </div>
         </section>
-
-        <div class="container">
-            <section id="about" class="content-section">
-                <h2>About Me</h2>
-                <div class="about-text">
-                    <p> Computer Science Engineering student with hands-on experience in Data Science,
- Machine Learning, and Cloud Computing. Skilled in Python, SQL, Power BI, and AWS.
- Passionate about leveraging data-driven solutions to solve real-world problems
- and deliver business insights</p>
-                </div>
-            </section>
-
             <section id="projects" class="content-section">
                 <h2>My Projects</h2>
                 
                 <div class="projects-grid">
                     <div class="project">
                         <h3>Meme Sentiment Analysis</h3>
-                        <p> Developed a multimodal sentiment analysis system integrating CNN, BERT, and ResNet-50 for image and text
- classification.
- Built a full-stack web application with Flask/Django (backend) and React.js with Node.js (frontend) for real-time
- inference.
-                        </p>Technologies: Python, TensorFlow, PyTorch, Flask, Django, React.js, Node.js.</p>
+                        <p>Developed a multimodal sentiment analysis system integrating CNN, BERT, and ResNet-50 for image and text classification. Built a full-stack web application with Flask/Django (backend) and React.js with Node.js (frontend) for real-time inference.</p>
                         <div class="project-tech">
                             <span class="tech-tag">React</span>
                             <span class="tech-tag">Node.js</span>
@@ -710,10 +993,7 @@ nav ul li a:hover {
 
                     <div class="project">
                         <h3>Real-Estate Price Prediction</h3>
-                        <p> Built and deployed using a Random Forest Regressor model to predict real estate prices from real-world housing data.
- Created a Flask-based web app with a responsive UI, enabling users to input location, BHK, bathroom count, and area
- for instant predictions.
-                        </p>Technologies: Python, Scikit-learn, Flask, HTML/CSS, JavaScript.</p>
+                        <p>Built and deployed using a Random Forest Regressor model to predict real estate prices from real-world housing data. Created a Flask-based web app with a responsive UI, enabling users to input location, BHK, bathroom count, and area for instant predictions.</p>
                         <div class="project-tech">
                             <span class="tech-tag">Python</span>
                             <span class="tech-tag">Flask</span>
@@ -723,11 +1003,8 @@ nav ul li a:hover {
                     </div>
 
                     <div class="project">
-                        <h3> Indian Stock Market Analysis & Forecasting Dashboard</h3>
-                        <p> Designed an interactive dashboard using Streamlit, yFinance, and Plotly for real-time market tracking and visualization.
- Implemented forecasting models (Prophet, LSTM, ARIMA, SARIMA) with performance metrics (MAE, RMSE, MAPE).
- Enabled multi-stock comparison, technical indicators, and automated reporting with CSV/Excel export.
-                        </p>Technologies: Python, Streamlit, Plotly, Scikit-learn, TensorFlow, Prophet.</p>
+                        <h3>Indian Stock Market Analysis & Forecasting Dashboard</h3>
+                        <p>Developed a Streamlit app to visualize and analyze real-time Indian stock market data with cloud deployment. Integrated Machine Learning for time-series forecasting to identify market trends and future price movements. Engineered a scalable data flow using AWS S3 for storage and IAM Roles for secure, programmatic result exports.</p>
                         <div class="project-tech">
                             <span class="tech-tag">ARIMA</span>
                             <span class="tech-tag">LSTM</span>
@@ -736,13 +1013,10 @@ nav ul li a:hover {
                             <span class="tech-tag">PowerBI</span>
                         </div>
                     </div>
-                     <div class="project">
-                        <h3>  Financial Loan Data Analysis  Power BI Dashboard </h3>
-                        <p> Developed an interactive Power BI dashboard to analyze 38K+ financial loan records and identify borrower risk trends.
- Performed data cleaning and transformation in Power Query and SQL to ensure data accuracy and consistency.
- Created KPIs and DAX measures (loan funded & received, total payments, loan-to-income ratio) for business insights.
- Visualized loan distribution, income vs. default patterns, and interest rate trends to support data-driven decisions.
-                        </p>Technologies: Power BI, SQL, DAX.</p>
+
+                    <div class="project">
+                        <h3>Financial Loan Data Analysis Power BI Dashboard</h3>
+                        <p>Developed an interactive Power BI dashboard to analyze 38K+ financial loan records and identify borrower risk trends. Performed data cleaning and transformation in Power Query and SQL to ensure data accuracy and consistency. Created KPIs and DAX measures for business insights.</p>
                         <div class="project-tech">
                             <span class="tech-tag">Power BI</span>
                             <span class="tech-tag">SQL</span>
@@ -771,10 +1045,7 @@ nav ul li a:hover {
                         <h4>AWS</h4>
                     </div>
                     <div class="skill-item">
-                        <h4>Machine Learning</h4>
-                    </div>
-                    <div class="skill-item">
-                        <h4>JavaScript</h4>
+                        <h4>MySQL</h4>
                     </div>
                     <div class="skill-item">
                         <h4>Flask</h4>
@@ -787,29 +1058,35 @@ nav ul li a:hover {
 
                 <div class="experience-timeline">
                     <div class="experience-item">
-                        <h3>Data Science & Analytics Intern</h3>
-                        <div class="experience-company"> ZIDIO Development</div>
-                        <div class="experience-date">jun 2025 • Remote</div>
+                        <h3>Data Annotator - Intern</h3>
+                        <div class="experience-company">Xtransmatrix Consulting Services Pvt. Limited</div>
+                        <div class="experience-date">Nov 2025 • On-site</div>
                         <div class="experience-description">
-                             Built scalable data pipelines and applied ML models for actionable insights.
- Worked on multiple real-world datasets and optimized data preprocessing
- pipelines.
- Automated workflows, improving efficiency by 25% .
- Resolved challenges through strategic problem-solving and effective
- communication, boosting overall team performance.
+                            <p>Worked on multi-modal datasets including text, audio, video, and image annotation, ensuring high accuracy and consistency.</p>
+                            <p>Precision with high-quality datasets by mastering complex labeling, metadata tagging, and Inverse Text Normalization (ITN).</p>
+                            <p>Led a team of annotators to deliver high-quality data annotation and transcription aligned with project guidelines.</p>
                         </div>
                     </div>
+
+                    <div class="experience-item">
+                        <h3>Data Science & Analytics Intern</h3>
+                        <div class="experience-company">ZIDIO Development</div>
+                        <div class="experience-date">July 2025 • Remote</div>
+                        <div class="experience-description">
+                            <p>Built scalable data pipelines and applied ML models for actionable insights and worked on multiple real-world datasets and optimized data preprocessing pipelines.</p>
+                            <p>Automated workflows, improving efficiency by 25%.</p>
+                            <p>Resolved challenges through strategic problem-solving and effective communication, boosting overall team performance.</p>
+                        </div>
+                    </div>
+
                     <div class="experience-item">
                         <h3>Cloud Application Developer Intern</h3>
                         <div class="experience-company">Rooman Technologies</div>
                         <div class="experience-date">Feb 2025 • Mangaluru, Karnataka</div>
                         <div class="experience-description">
-                              Collaborated with IBM, IIT Guwahati, and Wadhwani Foundation on an  
-cloud learning platform.
- Deployed scalable web hosting solutions improving performance and
- reliability.
- Gained hands-on experience in cloud infrastructure and deployment
- automation
+                            <p>Collaborated with IBM, IIT Guwahati, and Wadhwani Foundation on a cloud learning platform.</p>
+                            <p>Deployed scalable web hosting solutions improving performance and reliability.</p>
+                            <p>Gained hands-on experience in cloud infrastructure and deployment automation.</p>
                         </div>
                     </div>
 
@@ -818,99 +1095,255 @@ cloud learning platform.
                         <div class="experience-company">Codelab System</div>
                         <div class="experience-date">Oct 2023 • Mangaluru, Karnataka</div>
                         <div class="experience-description">
-                            Completed 2-month internship focused on data analysis and visualization.
- Executed employee churn prediction and presented data-driven solutions
- for decision-making.
- Applied statistical analysis and ML techniques, improving workflows and
- enhanced analysis skills.
+                            <p>Completed 2-month internship focused on data analysis and visualization.</p>
+                            <p>Executed employee churn prediction and presented data-driven solutions for decision-making.</p>
+                            <p>Applied statistical analysis and ML techniques, improving workflows and enhanced analysis skills.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
+            <!-- New Education & Certifications Section -->
+            <section id="education" class="content-section">
+                <h2>Education & Certifications</h2>
+                
+                <div class="edu-cert-grid">
+                    <div class="edu-cert-card">
+                        <div class="edu-cert-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M12 3L1 9L5 11.18V17.18L12 21L19 17.18V11.18L21 10.09V17H23V9L12 3ZM18.82 9L12 12.72L5.18 9L12 5.28L18.82 9ZM17 15.99L12 18.72L7 15.99V12.27L12 15L17 12.27V15.99Z"/>
+                            </svg>
+                        </div>
+                        <h3>B.E. Computer Science Engineering</h3>
+                        <div class="edu-cert-institution">Sahyadri College of Engineering & Management</div>
+                        <div class="edu-cert-date">2021 - 2025</div>
+                        <div class="edu-cert-details">
+                            <p>CGPA: 8.5/10 | Specialized in Data Science, Machine Learning, and Cloud Computing</p>
+                        </div>
+                    </div>
+
+                    <div class="edu-cert-card">
+                        <div class="edu-cert-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M20 2H4C2.9 2 2 2.9 2 4V20C2 21.1 2.9 22 4 22H20C21.1 22 22 21.1 22 20V4C22 2.9 21.1 2 20 2ZM20 20H4V4H20V20ZM6 10H11V12H6V10ZM6 14H11V16H6V14ZM13 10H18V12H13V10ZM13 14H18V16H13V14Z"/>
+                            </svg>
+                        </div>
+                        <h3>AWS Certified Cloud Practitioner</h3>
+                        <div class="edu-cert-institution">Amazon Web Services</div>
+                        <div class="edu-cert-date">2024</div>
+                        <div class="edu-cert-details">
+                            <p>Cloud infrastructure, deployment automation, and AWS core services</p>
+                        </div>
+                    </div>
+
+                    <div class="edu-cert-card">
+                        <div class="edu-cert-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M20 2H4C2.9 2 2 2.9 2 4V20C2 21.1 2.9 22 4 22H20C21.1 22 22 21.1 22 20V4C22 2.9 21.1 2 20 2ZM20 20H4V4H20V20ZM6 10H11V12H6V10ZM6 14H11V16H6V14ZM13 10H18V12H13V10ZM13 14H18V16H13V14Z"/>
+                            </svg>
+                        </div>
+                        <h3>Python for Data Science</h3>
+                        <div class="edu-cert-institution">IBM / Coursera</div>
+                        <div class="edu-cert-date">2023</div>
+                        <div class="edu-cert-details">
+                            <p>Data analysis, visualization, and machine learning with Python libraries</p>
+                        </div>
+                    </div>
+
+                    <div class="edu-cert-card">
+                        <div class="edu-cert-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M20 2H4C2.9 2 2 2.9 2 4V20C2 21.1 2.9 22 4 22H20C21.1 22 22 21.1 22 20V4C22 2.9 21.1 2 20 2ZM20 20H4V4H20V20ZM6 10H11V12H6V10ZM6 14H11V16H6V14ZM13 10H18V12H13V10ZM13 14H18V16H13V14Z"/>
+                            </svg>
+                        </div>
+                        <h3>Power BI Data Analyst</h3>
+                        <div class="edu-cert-institution">Microsoft</div>
+                        <div class="edu-cert-date">2024</div>
+                        <div class="edu-cert-details">
+                            <p>Advanced DAX, data modeling, and interactive dashboard creation</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Enhanced Contact Section with Form -->
             <section id="contact" class="content-section">
-    <h2>Contact Me</h2>
-    <p style="text-align:center; color: var(--text-secondary); margin-bottom: 2rem;">
-        Feel free to reach out to me directly or connect on social media
-    </p>
+                <h2>Contact Me</h2>
+                <p style="text-align:center; color: var(--text-secondary); margin-bottom: 2rem;">
+                    Feel free to reach out to me directly or connect on social media
+                </p>
+                    <div class="social-links">
+                        <a href="mailto:vijethamin2003@gmail.com" class="social-link">
+                            <div class="social-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z"/>
+                                </svg>
+                            </div>
+                            <span>vijethamin2003@gmail.com</span>
+                        </a>
 
-    <div class="social-links">
-        <!-- Email -->
-        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=vijethamin2003@gmail.com" class="social-link email">
-            <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                      d="M16 12H8m8 0l-8 5m8-5l-8-5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            vijethamin2003@gmail.com
-        </a>
+                        <a href="https://www.linkedin.com/in/vijeth-amin-6aa503259" target="_blank" rel="noopener noreferrer" class="social-link">
+                            <div class="social-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.27c-.96 0-1.73-.78-1.73-1.73s.78-1.73 1.73-1.73 1.73.78 1.73 1.73-.78 1.73-1.73 1.73zm13.5 11.27h-3v-5.6c0-1.34-.03-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.96v5.7h-3v-10h2.88v1.36h.04c.4-.76 1.38-1.56 2.84-1.56 3.04 0 3.6 2 3.6 4.59v5.61z"/>
+                                </svg>
+                            </div>
+                            <span>LinkedIn Profile</span>
+                        </a>
 
-        <!-- LinkedIn -->
-        <a href="https://www.linkedin.com/in/vijeth-amin-6aa503259" target="_blank" rel="noopener noreferrer" class="social-link linkedin">
-            <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 
-                2.76 2.24 5 5 5h14c2.76 0 5-2.24 
-                5-5v-14c0-2.76-2.24-5-5-5zm-11 
-                19h-3v-10h3v10zm-1.5-11.27c-.96 
-                0-1.73-.78-1.73-1.73s.78-1.73 
-                1.73-1.73 1.73.78 1.73 1.73-.78 
-                1.73-1.73 1.73zm13.5 11.27h-3v-5.6c0-1.34-.03-3.06-1.87-3.06-1.87 
-                0-2.16 1.46-2.16 2.96v5.7h-3v-10h2.88v1.36h.04c.4-.76 
-                1.38-1.56 2.84-1.56 3.04 0 3.6 2 3.6 
-                4.59v5.61z"/>
-            </svg>
-            LinkedIn
-        </a>
+                        <a href="https://github.com/VijethAmin" target="_blank" rel="noopener noreferrer" class="social-link">
+                            <div class="social-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M12 .5C5.648.5.5 5.648.5 12c0 5.088 3.292 9.388 7.865 10.91.575.106.785-.25.785-.556 0-.274-.01-1.002-.015-1.964-3.2.695-3.878-1.543-3.878-1.543-.523-1.33-1.278-1.683-1.278-1.683-1.044-.714.08-.699.08-.699 1.154.081 1.76 1.186 1.76 1.186 1.026 1.758 2.692 1.25 3.347.956.104-.743.402-1.25.73-1.54-2.553-.29-5.236-1.278-5.236-5.686 0-1.257.45-2.285 1.186-3.09-.119-.29-.514-1.46.112-3.046 0 0 .966-.31 3.168 1.182a11.04 11.04 0 012.88-.387c.976.005 1.96.132 2.88.387 2.2-1.492 3.165-1.182 3.165-1.182.628 1.586.233 2.756.115 3.046.74.805 1.186 1.833 1.186 3.09 0 4.42-2.687 5.392-5.25 5.676.41.353.778 1.05.778 2.117 0 1.528-.014 2.758-.014 3.133 0 .309.207.668.79.555A10.999 10.999 0 0023.5 12c0-6.352-5.148-11.5-11.5-11.5z"/>
+                                </svg>
+                            </div>
+                            <span>GitHub Profile</span>
+                        </a>
 
-        <!-- GitHub -->
-        <a href="https://github.com/VijethAmin" target="_blank" rel="noopener noreferrer" class="social-link github">
-            <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 .5C5.648.5.5 5.648.5 12c0 
-                5.088 3.292 9.388 7.865 10.91.575.106.785-.25.785-.556 
-                0-.274-.01-1.002-.015-1.964-3.2.695-3.878-1.543-3.878-1.543-.523-1.33-1.278-1.683-1.278-1.683-1.044-.714.08-.699.08-.699 
-                1.154.081 1.76 1.186 1.76 1.186 1.026 1.758 2.692 1.25 
-                3.347.956.104-.743.402-1.25.73-1.54-2.553-.29-5.236-1.278-5.236-5.686 
-                0-1.257.45-2.285 1.186-3.09-.119-.29-.514-1.46.112-3.046 
-                0 0 .966-.31 3.168 1.182a11.04 11.04 0 012.88-.387c.976.005 
-                1.96.132 2.88.387 2.2-1.492 3.165-1.182 3.165-1.182.628 
-                1.586.233 2.756.115 3.046.74.805 1.186 1.833 1.186 
-                3.09 0 4.42-2.687 5.392-5.25 
-                5.676.41.353.778 1.05.778 2.117 
-                0 1.528-.014 2.758-.014 3.133 0 
-                .309.207.668.79.555A10.999 10.999 0 0023.5 12c0-6.352-5.148-11.5-11.5-11.5z"/>
-            </svg>
-            GitHub
-        </a>
-
-        <!-- Phone -->
-        <a href="tel:+919353543424" class="social-link phone">
-            <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M3 5a2 2 0 012-2h3.28a1 1 0 
-                      01.948.684l1.518 4.553a1 1 0 
-                      01-.272 1.06l-2.12 2.12a16.001 
-                      16.001 0 006.586 6.586l2.12-2.12a1 1 0 
-                      011.06-.272l4.553 1.518a1 1 0 
-                      01.684.949V19a2 2 0 01-2 2h-1C9.163 
-                      21 3 14.837 3 7V5z" />
-            </svg>
-            Call: +91 9353543424
-        </a>
-    </div>
-</section>
-
+                        <a href="tel:+919353543424" class="social-link">
+                            <div class="social-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M6.62 10.79C8.06 13.62 10.38 15.94 13.21 17.38L15.41 15.18C15.69 14.9 16.08 14.82 16.43 14.93C17.55 15.3 18.75 15.5 20 15.5C20.55 15.5 21 15.95 21 16.5V20C21 20.55 20.55 21 20 21C10.61 21 3 13.39 3 4C3 3.45 3.45 3 4 3H7.5C8.05 3 8.5 3.45 8.5 4C8.5 5.25 8.7 6.45 9.07 7.57C9.18 7.92 9.1 8.31 8.82 8.59L6.62 10.79Z"/>
+                                </svg>
+                            </div>
+                            <span>+91 9353543424</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
     </main>
 
+    <!-- Success Message -->
+    <div class="success-message" id="successMessage">
+        Message sent successfully! I'll get back to you soon.
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M7.41 15.41L12 10.83L16.59 15.41L18 14L12 8L6 14L7.41 15.41Z"/>
+        </svg>
+    </button>
+
     <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        
+        // Check for saved theme preference or default to 'dark'
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        html.setAttribute('data-theme', currentTheme);
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            // Update icon
+            const icon = themeToggle.querySelector('.theme-icon svg');
+            if (newTheme === 'light') {
+                icon.innerHTML = '<path d="M9 2C5.13 2 2 5.13 2 9C2 11.38 3.19 13.47 5 14.74V17C5 17.55 5.45 18 6 18H9.5C9.78 18 10 17.78 10 17.5V17H14V17.5C14 17.78 14.22 18 14.5 18H18C18.55 18 19 17.55 19 17V14.74C20.81 13.47 22 11.38 22 9C22 5.13 18.87 2 15 2H9ZM12 4.75C13.66 4.75 15 6.09 15 7.75S13.66 10.75 12 10.75 9 9.41 9 7.75 10.34 4.75 12 4.75ZM7 20C7 20.55 7.45 21 8 21H16C16.55 21 17 20.55 17 20V19H7V20Z"/>';
+            } else {
+                icon.innerHTML = '<path d="M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z"/>';
+            }
+        });
+
+        // Animated Counter for Statistics
+        function animateCounter(element) {
+            const target = parseInt(element.getAttribute('data-target'));
+            const duration = 2000;
+            const increment = target / (duration / 16);
+            let current = 0;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target + '+';
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }, 16);
+        }
+
+        // Intersection Observer for stat counters
+        const statObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+                    animateCounter(entry.target);
+                    entry.target.classList.add('counted');
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stat-number').forEach(stat => {
+            statObserver.observe(stat);
+        });
+
+        // Contact Form Submission
+        const contactForm = document.getElementById('contactForm');
+        const successMessage = document.getElementById('successMessage');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(contactForm);
+            const data = Object.fromEntries(formData);
+            
+            // In a real application, you would send this to a server
+            console.log('Form submitted:', data);
+            
+            // Show success message
+            successMessage.classList.add('show');
+            
+            // Reset form
+            contactForm.reset();
+            
+            // Hide success message after 3 seconds
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 3000);
+        });
+
+        // Back to Top Button
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+            
+            // Header scroll effect
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.boxShadow = 'none';
+            }
+        });
+        
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
         // Image error handling
         function handleImageError(img) {
-            const container = document.getElementById('profileContainer');
-            container.classList.add('no-image');
-            console.log('Profile image failed to load, showing fallback');
+            img.style.display = 'none';
+            console.log('Profile image failed to load');
         }
 
         // Try multiple image sources
         function loadProfileImage() {
-            const img = document.getElementById('profileImage');
+            const img = document.querySelector('.profile-image img');
             const sources = [
                 'assets/vijeth.jpg',
                 'assets/vijeth.JPG',
@@ -925,15 +1358,15 @@ cloud learning platform.
                 if (currentSource < sources.length) {
                     img.src = sources[currentSource];
                     img.onload = function() {
-                        console.log('Profile image loaded successfully:', sources[currentSource-1]);
+                        console.log('Profile image loaded successfully:', sources[currentSource]);
                     };
                     img.onerror = function() {
-                        console.log('Failed to load:', sources[currentSource-1]);
+                        console.log('Failed to load:', sources[currentSource]);
+                        currentSource++;
                         tryNextSource();
                     };
-                    currentSource++;
                 } else {
-                    console.log('All image sources failed, showing fallback');
+                    console.log('All image sources failed');
                     handleImageError(img);
                 }
             }
@@ -950,28 +1383,9 @@ cloud learning platform.
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
-        });
-
-        // Form submission handler
-        function handleSubmit(event) {
-            event.preventDefault();
-            alert('Thank you for your message! I\'ll get back to you soon.');
-            event.target.reset();
-        }
-
-        // Header scroll effect
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 50) {
-                header.style.background = 'rgba(10, 10, 15, 0.95)';
-                header.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3)';
-            } else {
-                header.style.background = 'rgba(10, 10, 15, 0.8)';
-                header.style.boxShadow = 'none';
-            }
         });
 
         // Intersection Observer for animations
@@ -982,70 +1396,40 @@ cloud learning platform.
                     entry.target.style.transform = 'translateY(0)';
                 }
             });
-        });
+        }, { threshold: 0.1 });
 
         // Observe all sections for animation
-        document.querySelectorAll('.content-section, .project, .skill-item, .experience-item').forEach((el) => {
+        document.querySelectorAll('.content-section, .project, .skill-item, .experience-item, .edu-cert-card').forEach((el) => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(30px)';
             el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             observer.observe(el);
         });
 
-        // Parallax effect for hero section
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero');
-            if (hero) {
-                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-            }
+        // Dynamic particles
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.width = `${Math.random() * 8 + 2}px`;
+            particle.style.height = particle.style.width;
+            particle.style.top = `${Math.random() * 100}%`;
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.background = Math.random() > 0.5 ? 'var(--accent-primary)' : 'var(--accent-secondary)';
+            document.querySelector('.bg-animation').appendChild(particle);
+
+            setTimeout(() => {
+                particle.remove();
+            }, 6000);
+        }
+
+        // Generate random particles periodically
+        setInterval(createParticle, 2000);
+
+        // Prevent browser from restoring scroll position
+        window.history.scrollRestoration = "manual";
+        window.addEventListener('load', () => {
+            window.scrollTo(0, 0);
         });
-
-                // Dynamic particles
-                function createParticle() {
-                    const particle = document.createElement('div');
-                    particle.className = 'particle';
-                    particle.style.width = `${Math.random() * 8 + 2}px`;
-                    particle.style.height = particle.style.width;
-                    particle.style.top = `${Math.random() * 100}%`;
-                    particle.style.left = `${Math.random() * 100}%`;
-                    particle.style.background = Math.random() > 0.5 ? 'var(--accent-primary)' : 'var(--accent-secondary)';
-                    document.querySelector('.bg-animation').appendChild(particle);
-        
-                    setTimeout(() => {
-                        particle.remove();
-                    }, 6000);
-                }
-        
-                // Generate random particles periodically
-                setInterval(createParticle, 2000);
-            </script>
-            <script>
-    // Prevent browser from restoring scroll position and force top on load
-    window.history.scrollRestoration = "manual";
-    window.addEventListener('load', () => {
-        window.scrollTo(0, 0);
-    });
-
-    // Smooth scrolling for anchor link clicks only
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-    });
-
-    // Typed.js effect (keep your existing config here)
-    if (document.querySelector('#element')) {
-        var typed = new Typed('#element', {
-            strings: ['Python', 'C++', 'JAVA', 'HTML', 'CSS'],
-            typeSpeed: 40,
-        });
-    }
-</script>
-
-        </body>
-        </html>
+    </script>
+</body>
+</html>
